@@ -15,15 +15,13 @@ import {
   git,
   figma,
   docker,
-  meta,
-  starbucks,
-  tesla,
-  shopify,
   carrent,
-  jobit,
+  booking,
   tripguide,
   threejs,
 } from "../assets";
+
+import { CodeBracketIcon } from '@heroicons/react/24/solid';
 
 export const navLinks = [
   {
@@ -46,7 +44,7 @@ const services = [
     icon: web,
   },
   {
-    title: "React Native Developer",
+    title: "React Developer",
     icon: mobile,
   },
   {
@@ -54,7 +52,7 @@ const services = [
     icon: backend,
   },
   {
-    title: "Content Creator",
+    title: "UI/UX Designer",
     icon: creator,
   },
 ];
@@ -116,58 +114,59 @@ const technologies = [
 
 const experiences = [
   {
-    title: "React.js Developer",
-    company_name: "Starbucks",
-    icon: starbucks,
+    title: "Junior Web Developer",
+    company_name: "Self-Initiated Projects & Open Source",
+    icon: javascript,
     iconBg: "#383E56",
-    date: "March 2020 - April 2021",
+    date: "June 2022 - December 2022",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Designed and developed responsive websites using HTML5, CSS3, and vanilla JavaScript.",
+      "Built interactive components and practiced DOM manipulation for dynamic interfaces.",
+      "Focused on accessibility, clean semantic code, and cross-device compatibility.",
+      "Used Git and GitHub for version control and collaboration on small open-source contributions.",
     ],
   },
   {
-    title: "React Native Developer",
-    company_name: "Tesla",
-    icon: tesla,
+    title: "React Developer",
+    company_name: "University & Personal Projects",
+    icon: reactjs,
     iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
+    date: "January 2023 - July 2023",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Built dynamic single-page applications using React.js with functional components and hooks.",
+      "Developed a hotel booking app with search filters, authentication, and reusable UI components.",
+      "Used Context API for state management and implemented React Router for smooth navigation.",
+      "Followed best practices in folder structure, performance optimization, and responsive design.",
     ],
   },
   {
-    title: "Web Developer",
-    company_name: "Shopify",
-    icon: shopify,
+    title: "UI/UX & Web Application Developer",
+    company_name: "SaaS Startup Project",
+    icon: figma,
+    iconBg: "#E6DEDD",
+    date: "August 2023 - February 2024",
+    points: [
+      "Collaborating on a SaaS web app with a focus on clean UX, dashboard usability, and onboarding flows.",
+      "Translating Figma designs into reusable and pixel-perfect React components.",
+      "Implementing UI animations, visual hierarchy, and mobile responsiveness for better user engagement.",
+      "Working in a small agile team, combining design and frontend development roles effectively.",
+    ],
+  },
+  {
+    title: "Full Stack Developer (MERN)",
+    company_name: "Component-Based Computing Project",
+    icon: mongodb,
     iconBg: "#383E56",
-    date: "Jan 2022 - Jan 2023",
+    date: "March 2024 - Present",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "Full stack Developer",
-    company_name: "Meta",
-    icon: meta,
-    iconBg: "#E6DEDD",
-    date: "Jan 2023 - Present",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Engineered a full-stack application using MongoDB, Express.js, React.js, and Node.js (MERN).",
+      "Built modular components following principles of component-based design and separation of concerns.",
+      "Implemented secure RESTful APIs, JWT-based authentication, and robust backend validation.",
+      "Applied dependency injection and inversion of control concepts to improve code maintainability.",
     ],
   },
 ];
+
 
 const testimonials = [
   {
@@ -219,25 +218,33 @@ const projects = [
     source_code_link: "https://github.com/",
   },
   {
-    name: "Job IT",
+    name: "LamaBooking – Hotel Booking System",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "A full-stack web application that allows users to search and book hotels with real-time availability, secure authentication, and user-friendly UI. Admins can manage listings, rooms, and reservations.",
     tags: [
       {
         name: "react",
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "node.js",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "mongodb",
+        color: "orange-text-gradient",
+      },
+      {
+        name: "express",
         color: "pink-text-gradient",
       },
+      {
+        name: "jwt-auth",
+        color: "red-text-gradient",
+      },
     ],
-    image: jobit,
-    source_code_link: "https://github.com/",
+    image: booking, // Replace 'booking' with your actual image import name
+    source_code_link: "https://github.com/your-username/stayease-booking",
   },
   {
     name: "Trip Guide",
