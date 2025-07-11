@@ -16,12 +16,14 @@ import {
   figma,
   docker,
   carrent,
+  elitegpt,
   booking,
   tripguide,
   threejs,
 } from "../assets";
 
-import { CodeBracketIcon } from '@heroicons/react/24/solid';
+
+
 
 export const navLinks = [
   {
@@ -267,6 +269,31 @@ const projects = [
     image: tripguide,
     source_code_link: "https://github.com/",
   },
+    {
+    name: "ELITE GPT",
+    description:
+      "ELITE is an advanced AI-powered legal assistant designed to provide quick, accurate, and accessible legal advice. Whether you need help understanding your rights, drafting basic legal documents, or getting guidance on common legal issues, ELITE is here 24/7. With a user-friendly interface and a growing knowledge base covering multiple areas of law, ELITE helps you make informed legal decisions — anytime, anywhere",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "mongodb",
+        color: "green-text-gradient",
+      },
+      {
+        name: "hugging-face",
+        color: "green-text-gradient",
+      },
+      {
+        name: "scss",
+        color: "pink-text-gradient",
+      },
+    ],
+    image:elitegpt ,
+    source_code_link: "https://github.com/",
+  }
 ];
 
 export { services, technologies, experiences, testimonials, projects };

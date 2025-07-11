@@ -30,6 +30,7 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import booking from "./booking.png";
+import elitegpt from "./elitegpt.png";
 
 
 export {
@@ -62,4 +63,5 @@ export {
   jobit,
   tripguide,
   booking,
+  elitegpt
 };
