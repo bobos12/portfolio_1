@@ -35,6 +35,7 @@ import clinic from "./clinic.png";
 import startify from "./startify.png";
 import gpt from "./gpt.png";
 import movie from "./movie.png"
+import portfolio from "./portfolio.png"
 
 
 export {
@@ -72,4 +73,5 @@ export {
   startify,
   gpt,
   movie,
+  portfolio
 };

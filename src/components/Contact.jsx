@@ -290,7 +290,7 @@ Reply directly to: ${form.email}
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='xl:w-[60%] xl:h-auto md:h-[450px] h-[300px] mt-8 xl:mt-0'
+        className='xl:w-[80%] xl:h-auto md:h-[450px] h-[300px] mt-8 xl:mt-0'
       >
         <EarthCanvas />
       </motion.div>

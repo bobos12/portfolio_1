@@ -24,6 +24,7 @@ import {
   gpt,
   threejs,
   movie,
+  portfolio
 } from "../assets";
 
 
@@ -223,6 +224,28 @@ const projects = [
     image: movie,
     source_code_link: "https://github.com/bobos12/MOVIES-FLEX",
   },  
+  {
+    name: "3D Portfolio",
+    description:
+      "A modern and interactive 3D portfolio website showcasing projects, skills, and experience, built with React, Three.js, and Tailwind CSS.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "three.js", color: "green-text-gradient" },
+      { name: "tailwind", color: "pink-text-gradient" },
+      { name: "framer motion", color: "purple-text-gradient" },
+      { name: "email.js", color: "yellow-text-gradient" },
+    ],
+    features: [
+      "Interactive 3D elements and animations",
+      "Responsive design",
+      "Modern UI/UX",
+      "Contact form",
+      "Project showcase",
+      "Skills and experience section",
+    ],
+    image: portfolio, // replace with your imported image variable
+    source_code_link: "https://github.com/bobos12/portfolio_1",
+  },
   {
     name: "LamaBooking – Hotel Booking System",
     description:
