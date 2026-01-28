@@ -31,7 +31,10 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import booking from "./booking.png";
 import elitegpt from "./elitegpt.png";
-
+import clinic from "./clinic.png";
+import startify from "./startify.png";
+import gpt from "./gpt.png";
+import movie from "./movie.png"
 
 export {
   logo,
@@ -63,5 +66,9 @@ export {
   jobit,
   tripguide,
   booking,
-  elitegpt
+  elitegpt,
+  clinic,
+  startify,
+  gpt,
+  movie,
 };

@@ -129,10 +129,10 @@ Reply directly to: ${form.email}
   };
 
   return (
-    <div className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-6 xl:gap-10 overflow-hidden px-4 sm:px-6 lg:px-0`}>
+    <div className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}>
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-black-100 p-4 sm:p-6 lg:p-8 rounded-2xl relative'
+        className='xl:w-[60%] bg-black-100 p-8 rounded-2xl'
       >
         {/* Success Message */}
         {showSuccess && (
@@ -290,7 +290,7 @@ Reply directly to: ${form.email}
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='xl:flex-1 xl:h-auto md:h-[400px] sm:h-[300px] h-[250px] mt-8 xl:mt-0'
+        className='xl:w-[60%] xl:h-auto md:h-[450px] h-[300px] mt-8 xl:mt-0'
       >
         <EarthCanvas />
       </motion.div>

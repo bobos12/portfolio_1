@@ -18,8 +18,12 @@ import {
   carrent,
   elitegpt,
   booking,
+  clinic,
   tripguide,
+  startify,
+  gpt,
   threejs,
+  movie,
 } from "../assets";
 
 
@@ -199,16 +203,16 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Car Rent",
+    name: "Movies Flex",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "A modern movie discovery web app that allows users to explore, filter, and sort thousands of high-rated movies using real-time data from TMDB. Built for speed, usability, and a clean browsing experience.",
     tags: [
       {
         name: "react",
         color: "blue-text-gradient",
       },
       {
-        name: "mongodb",
+        name: "tmdb api",
         color: "green-text-gradient",
       },
       {
@@ -216,9 +220,9 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: carrent,
-    source_code_link: "https://github.com/",
-  },
+    image: movie,
+    source_code_link: "https://github.com/bobos12/MOVIES-FLEX",
+  },  
   {
     name: "LamaBooking – Hotel Booking System",
     description:
@@ -246,28 +250,62 @@ const projects = [
       },
     ],
     image: booking, // Replace 'booking' with your actual image import name
-    source_code_link: "https://github.com/your-username/stayease-booking",
+    source_code_link: "https://github.com/bobos12/booooooooking",
   },
   {
-    name: "Trip Guide",
+    name: "Startify",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "A modern, responsive hotel booking interface designed to deliver a seamless user experience. Features dynamic search, interactive listings, and clean UI flows optimized for speed and usability across all devices.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "responsive-ui", color: "green-text-gradient" },
+      { name: "modern-design", color: "pink-text-gradient" },
+      { name: "component-based", color: "orange-text-gradient" },
+      { name: "frontend-architecture", color: "red-text-gradient" },
+    ],
+    image: startify,
+    source_code_link: "https://github.com/bobos12/STARTIFY",
+  },
+  {
+    name: "GPT-4 Landing Page",
+    description:
+      "A high-conversion, responsive landing page showcasing GPT-4 features with modern UI design, smooth animations, and clear call-to-action sections optimized for user engagement and performance.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "responsive-design", color: "green-text-gradient" },
+      { name: "ui-ux", color: "pink-text-gradient" },
+      { name: "animation", color: "orange-text-gradient" },
+      { name: "frontend-performance", color: "red-text-gradient" },
+    ],
+    image: gpt,
+    source_code_link: "https://github.com/bobos12/gpt_3",
+  },  
+  {
+    name: "Eye Clinic Management System",
+    description:
+      "A full-stack MERN web application for managing an ophthalmology clinic, including patient records, visit tracking, medical examinations, prescriptions, and secure authentication with role-based access.",
     tags: [
       {
-        name: "nextjs",
+        name: "react",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "nodejs",
         color: "green-text-gradient",
       },
       {
-        name: "css",
+        name: "mongodb",
         color: "pink-text-gradient",
       },
+      {
+        name: "express",
+        color: "orange-text-gradient",
+      },
+      { name: "component-based", color: "orange-text-gradient" },
+      { name: "frontend-architecture", color: "red-text-gradient" },
     ],
-    image: tripguide,
-    source_code_link: "https://github.com/",
+    image: clinic, // your project screenshot
+    source_code_link: "https://github.com/bobos12/CLINIC-MANGMENT",
   },
     {
     name: "ELITE GPT",
@@ -292,7 +330,7 @@ const projects = [
       },
     ],
     image:elitegpt ,
-    source_code_link: "https://github.com/",
+    source_code_link: "https://github.com/bobos12/ELITE-GPT",
   }
 ];
 
