@@ -153,8 +153,8 @@ const Hero = () => {
             
             
             <motion.a
-              href="/Ahmed_Sharaf_CV.pdf" // Link to your CV
-              download="Ahmed_Sharaf_CV.pdf"
+              href="/Ahmed-Sharaf-CV.pdf" // Link to your CV
+              download="Ahmed-Sharaf-CV.pdf"
               className="border-2 border-[#915eff] text-[#915eff] hover:bg-[#915eff] hover:text-white font-bold py-3 px-8 rounded-full transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}

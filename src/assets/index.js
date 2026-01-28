@@ -36,6 +36,7 @@ import startify from "./startify.png";
 import gpt from "./gpt.png";
 import movie from "./movie.png"
 
+
 export {
   logo,
   backend,
