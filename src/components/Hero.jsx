@@ -4,7 +4,7 @@ import { FaWhatsapp, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import {
   motion, AnimatePresence, // eslint-disable-line no-unused-vars
-  useMotionValue, useTransform, useSpring,
+  useMotionValue, useTransform, useSpring, useScroll,
 } from "framer-motion";
 
 const ROLES = ["Full Stack Developer", "React Engineer", "Node.js Developer", "UI Craftsman"];
@@ -35,6 +35,12 @@ const AnimatedUnderline = () => (
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+
+  /* --- Scroll parallax ----------------------------------------------- */
+  const { scrollY } = useScroll();
+  const textY  = useTransform(scrollY, [0, 600], [0, -90]);
+  const cardY  = useTransform(scrollY, [0, 600], [0, -140]);
+  const fadeOut = useTransform(scrollY, [0, 400], [1, 0]);
 
   /* --- 3-D card tilt ------------------------------------------------- */
   const cardRef = useRef(null);
@@ -90,7 +96,7 @@ const Hero = () => {
       >
 
         {/* ══ LEFT — text content ══════════════════════════════════════ */}
-        <div className="flex-1 flex items-start gap-5 z-10 order-1">
+        <motion.div style={{ y: textY, opacity: fadeOut }} className="flex-1 flex items-start gap-5 z-10 order-1">
 
           {/* Pulse + vertical line */}
           <motion.div
@@ -209,7 +215,7 @@ const Hero = () => {
             </motion.div>
 
           </div>
-        </div>
+        </motion.div>
 
         {/* ══ RIGHT — photo card ═══════════════════════════════════════ */}
         <motion.div
@@ -217,7 +223,7 @@ const Hero = () => {
           className="shrink-0 z-10 order-2"
           onMouseMove={onCardMove}
           onMouseLeave={onCardLeave}
-          style={{ rotateX, rotateY, transformPerspective: 1000 }}
+          style={{ y: cardY, rotateX, rotateY, transformPerspective: 1000 }}
           variants={item}
         >
           <div className="relative w-[260px] h-[340px] sm:w-[300px] sm:h-[390px] md:w-[340px] md:h-[440px]">

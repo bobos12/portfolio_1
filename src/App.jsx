@@ -6,6 +6,8 @@ import { About, Contact, Experience, Hero, Navbar, Tech, Works } from "./compone
 import Galaxy from "./components/Galaxy";
 import Footer from "./components/Footer";
 import IntroScreen from "./components/IntroScreen";
+import Cursor from "./components/Cursor";
+import ScrollProgress from "./components/ScrollProgress";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -20,6 +22,8 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <Cursor />
+      <ScrollProgress />
       {!introDone && <IntroScreen onComplete={() => setIntroDone(true)} />}
 
       <motion.div
@@ -53,9 +57,9 @@ const App = () => {
         <Navbar />
         <Hero />
         <About />
-        <Experience />
         <Tech />
         <Works />
+        <Experience />
         <Contact />
         <Footer />
       </motion.div>
