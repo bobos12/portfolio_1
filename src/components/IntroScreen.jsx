@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const CHARS = "AHMED SHARAF".split("");
+const WORD1 = "AHMED".split("");
+const WORD2 = "SHARAF".split("");
 
 const CORNERS = [
-  { pos: "top-7 left-7",    border: "border-t border-l" },
-  { pos: "top-7 right-7",   border: "border-t border-r" },
-  { pos: "bottom-7 left-7", border: "border-b border-l" },
-  { pos: "bottom-7 right-7",border: "border-b border-r" },
+  { pos: "top-7 left-7",     border: "border-t border-l" },
+  { pos: "top-7 right-7",    border: "border-t border-r" },
+  { pos: "bottom-7 left-7",  border: "border-b border-l" },
+  { pos: "bottom-7 right-7", border: "border-b border-r" },
 ];
 
 const IntroScreen = ({ onComplete }) => {
@@ -67,27 +68,34 @@ const IntroScreen = ({ onComplete }) => {
           Portfolio
         </motion.p>
 
-        {/* Name — per-character slide-up reveal */}
-        <div className="flex items-end flex-wrap justify-center">
-          {CHARS.map((char, i) => (
-            <div key={i} style={{ overflow: "hidden", display: "inline-block" }}>
-              <motion.span
-                className="block text-white font-bold"
-                style={{
-                  fontSize: "clamp(36px, 8vw, 76px)",
-                  letterSpacing: "0.16em",
-                  lineHeight: 1.05,
-                }}
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{
-                  delay: 0.32 + i * 0.055,
-                  duration: 0.62,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                {char === " " ? " " : char}
-              </motion.span>
+        {/* Name — two words stacked, each character slides up independently */}
+        <div className="flex flex-col items-center gap-0.5">
+          {[WORD1, WORD2].map((word, wi) => (
+            <div key={wi} className="flex">
+              {word.map((char, ci) => {
+                const globalIdx = wi === 0 ? ci : WORD1.length + ci;
+                return (
+                  <div key={ci} style={{ overflow: "hidden", display: "inline-block" }}>
+                    <motion.span
+                      className="block text-white font-bold"
+                      style={{
+                        fontSize: "clamp(40px, 11vw, 76px)",
+                        letterSpacing: "0.18em",
+                        lineHeight: 1.05,
+                      }}
+                      initial={{ y: "110%" }}
+                      animate={{ y: 0 }}
+                      transition={{
+                        delay: 0.32 + globalIdx * 0.055,
+                        duration: 0.62,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>

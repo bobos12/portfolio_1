@@ -96,7 +96,7 @@ const TechIcon = ({ name, url, color, index, size = 72 }) => {
 };
 
 const DESKTOP_ROWS = [8, 8, 7, 6, 5, 4, 3];             // 41 total
-const MOBILE_ROWS  = [7, 6, 5, 5, 5, 4, 5, 5, 3, 3]; // 41 total — 5→4→3 pyramid
+const MOBILE_ROWS  = [6, 6, 5, 5, 5, 4, 4, 3, 3]; // 41 total — max 6 per row
 
 const Tech = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
