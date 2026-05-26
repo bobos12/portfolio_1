@@ -84,11 +84,11 @@ const About = () => {
         who can deliver quality and creativity, let's build something remarkable together.
       </motion.p>
 
-      <div className="mt-16 flex flex-wrap justify-center gap-10">
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
-        ))}
-      </div>
+   <div className="mt-16 grid grid-cols-2 gap-6 place-items-center sm:flex sm:flex-wrap sm:gap-12 sm:justify-start">
+  {services.map((service, index) => (
+    <ServiceCard key={service.title} index={index} {...service} />
+  ))}
+</div>
     </div>
   );
 };
