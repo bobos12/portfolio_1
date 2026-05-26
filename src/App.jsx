@@ -1,12 +1,15 @@
 import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 import { About, Contact, Experience, Hero, Navbar, Tech, Works } from "./components";
 import Galaxy from "./components/Galaxy";
 import Footer from "./components/Footer";
+import IntroScreen from "./components/IntroScreen";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -17,7 +20,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className="fixed inset-0 z-0">
+      {!introDone && <IntroScreen onComplete={() => setIntroDone(true)} />}
+
+      <motion.div
+        className="fixed inset-0 z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: introDone ? 1 : 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <Galaxy
           mouseInteraction={!isMobile}
           mouseRepulsion={false}
@@ -32,9 +42,14 @@ const App = () => {
           repulsionStrength={2}
           transparent={true}
         />
-      </div>
+      </motion.div>
 
-      <div className="relative z-10">
+      <motion.div
+        className="relative z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: introDone ? 1 : 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
         <Navbar />
         <Hero />
         <About />
@@ -43,7 +58,7 @@ const App = () => {
         <Works />
         <Contact />
         <Footer />
-      </div>
+      </motion.div>
     </BrowserRouter>
   );
 };
