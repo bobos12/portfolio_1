@@ -2,13 +2,13 @@ import { Html, useProgress } from '@react-three/drei'
 
 const Loader = () => {
   const { progress } = useProgress()
-  
+
   return (
     <Html center>
-      <div className="flex justify-center items-center">
-        <div className="w-20 h-20 border-2 border-opacity-20 border-blue-500 border-t-blue-500 rounded-full animate-spin" />
-        <p className="text-sm font-medium text-[#915eff] mt-4">
-          {progress.toFixed(2)}%
+      <div className="flex flex-col justify-center items-center gap-3">
+        <div className="w-16 h-16 border border-white/20 border-t-white/70 rounded-full animate-spin" />
+        <p className="text-[12px] font-medium text-white/50 tracking-widest">
+          {progress.toFixed(0)}%
         </p>
       </div>
     </Html>

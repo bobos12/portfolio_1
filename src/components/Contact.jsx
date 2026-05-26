@@ -1,299 +1,254 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-
-import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
+
 const Contact = () => {
   const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
 
-  useEffect(() => {
-    // Initialize EmailJS with your public key
-    emailjs.init("Eu6M5fbsrz-A077zF");
-  }, []);
+  useEffect(() => { emailjs.init("Eu6M5fbsrz-A077zF"); }, []);
 
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!form.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-    
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-    
-    if (!form.message.trim()) {
-      newErrors.message = "Message is required";
-    } else if (form.message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters long";
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim())    e.name    = "Name is required";
+    if (!form.email.trim())   e.email   = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Invalid email address";
+    if (!form.message.trim()) e.message = "Message is required";
+    else if (form.message.trim().length < 10) e.message = "At least 10 characters";
+    setErrors(e);
+    return Object.keys(e).length === 0;
   };
 
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
-
-    setForm({
-      ...form,
-      [name]: value,
-    });
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: "",
-      });
-    }
+    const { name, value } = e.target;
+    setForm(f => ({ ...f, [name]: value }));
+    if (errors[name]) setErrors(er => ({ ...er, [name]: "" }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
+    if (!validate()) return;
     setLoading(true);
-
-    // Enhanced message template that includes sender's email
-    const emailMessage = `
-Message from: ${form.name}
-Email: ${form.email}
-
-Message:
-${form.message}
-
----
-This message was sent from your portfolio contact form.
-Reply directly to: ${form.email}
-    `.trim();
-
     emailjs
-      .send(
-        "service_7ahk31c",
-        "template_2owo7h7",
-        {
-          from_name: form.name,
-          to_name: "Ahmed Sharaf",
-          from_email: form.email,
-          to_email: "aahmedsharaf@gmail.com",
-          message: emailMessage,
-          reply_to: form.email, // This ensures you can reply directly
-        }
-      )
-      .then(
-        (result) => {
-          setLoading(false);
-          console.log('SUCCESS!', result.text);
-          
-          // Show success message
-          setShowSuccess(true);
-          
-          // Reset form
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
-
-          // Hide success message after 5 seconds
-          setTimeout(() => {
-            setShowSuccess(false);
-          }, 5000);
-        },
-        (error) => {
-          setLoading(false);
-          console.error('FAILED...', error.text);
-          alert(`Error sending message: ${error.text || 'Unknown error occurred'}`);
-        }
-      );
+      .send("service_7ahk31c", "template_2owo7h7", {
+        from_name:  form.name,
+        to_name:    "Ahmed Sharaf",
+        from_email: form.email,
+        to_email:   "aahmedsharaf@gmail.com",
+        message:    `From: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+        reply_to:   form.email,
+      })
+      .then(() => {
+        setLoading(false);
+        setShowSuccess(true);
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setShowSuccess(false), 6000);
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert(`Failed to send: ${err.text || "Unknown error"}`);
+      });
   };
 
+  const inputBase =
+    "w-full bg-white/[0.04] border rounded-xl px-4 py-3.5 text-white text-[14px] font-light placeholder:text-white/20 outline-none transition-all duration-200 focus:bg-white/[0.06]";
+
   return (
-    <div className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}>
+    <div className="xl:mt-12 flex xl:flex-row flex-col-reverse gap-8 xl:gap-12 overflow-hidden">
+
+      {/* ── Form panel ─────────────────────────────────────────────────── */}
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className='xl:w-[60%] bg-black-100 p-8 rounded-2xl'
+        className="xl:flex-1 w-full"
       >
-        {/* Success Message */}
-        {showSuccess && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 bg-green-500 text-white p-3 sm:p-4 rounded-lg shadow-lg z-10"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-sm sm:text-base">✅ Message sent successfully! I'll get back to you soon.</span>
-              <button
-                onClick={() => setShowSuccess(false)}
-                className="text-white hover:text-gray-200 ml-2 sm:ml-4 text-lg"
-              >
-                ✕
-              </button>
-            </div>
-          </motion.div>
-        )}
-
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
-
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className='mt-8 sm:mt-12 flex flex-col gap-6 sm:gap-8'
-        >
-          <label className='flex flex-col'>
-            <span className='text-white font-medium mb-3 sm:mb-4 text-sm sm:text-base'>
-              Your Name <span className="text-red-500">*</span>
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+            <span className="text-emerald-400 text-[11px] font-medium uppercase tracking-[0.16em]">
+              Available for work
             </span>
-            <input
-              type='text'
-              name='name'
-              value={form.name}
-              onChange={handleChange}
-              placeholder="What's your good name?"
-              className={`bg-tertiary py-3 sm:py-4 px-4 sm:px-6 placeholder:text-secondary text-white rounded-lg outline-none border-2 font-medium transition-colors text-sm sm:text-base ${
-                errors.name ? 'border-red-500' : 'border-transparent focus:border-primary'
-              }`}
-            />
-            {errors.name && (
-              <span className="text-red-500 text-xs sm:text-sm mt-2">{errors.name}</span>
-            )}
-          </label>
-
-          <label className='flex flex-col'>
-            <span className='text-white font-medium mb-3 sm:mb-4 text-sm sm:text-base'>
-              Your Email <span className="text-red-500">*</span>
-            </span>
-            <input
-              type='email'
-              name='email'
-              value={form.email}
-              onChange={handleChange}
-              placeholder="What's your email address?"
-              className={`bg-tertiary py-3 sm:py-4 px-4 sm:px-6 placeholder:text-secondary text-white rounded-lg outline-none border-2 font-medium transition-colors text-sm sm:text-base ${
-                errors.email ? 'border-red-500' : 'border-transparent focus:border-primary'
-              }`}
-            />
-            {errors.email && (
-              <span className="text-red-500 text-xs sm:text-sm mt-2">{errors.email}</span>
-            )}
-          </label>
-
-          <label className='flex flex-col'>
-            <span className='text-white font-medium mb-3 sm:mb-4 text-sm sm:text-base'>
-              Your Message <span className="text-red-500">*</span>
-            </span>
-            <textarea
-              rows={5}
-              name='message'
-              value={form.message}
-              onChange={handleChange}
-              placeholder='What would you like to say?'
-              className={`bg-tertiary py-3 sm:py-4 px-4 sm:px-6 placeholder:text-secondary text-white rounded-lg outline-none border-2 font-medium transition-colors resize-none text-sm sm:text-base ${
-                errors.message ? 'border-red-500' : 'border-transparent focus:border-primary'
-              }`}
-            />
-            {errors.message && (
-              <span className="text-red-500 text-xs sm:text-sm mt-2">{errors.message}</span>
-            )}
-            <span className="text-secondary text-xs sm:text-sm mt-2">
-              {form.message.length}/500 characters
-            </span>
-          </label>
-
-          <button
-            type='submit'
-            disabled={loading}
-          className={`py-3 sm:py-4 px-6 sm:px-8 rounded-xl outline-none w-full sm:w-fit text-white font-bold shadow-md transition-all duration-300 text-sm sm:text-base ${
-              loading 
-                ? 'bg-blue-400 cursor-not-allowed' 
-                : 'bg-blue-600 hover:bg-blue-700 shadow-blue-700 hover:shadow-lg transform hover:-translate-y-1'
-            }`}
-
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Sending...
-              </span>
-            ) : (
-              "Send Message"
-            )}
-          </button>
-        </form>
-
-        <div className="mt-6 sm:mt-8 text-secondary text-xs sm:text-sm">
-          <p className="mt-2">
-            I typically respond within 24 hours. Feel free to reach out for any inquiries!
+          </div>
+          <h2 className="text-white text-[36px] sm:text-[44px] font-bold leading-tight">
+            Let's work<br />
+            <span className="text-white/30">together.</span>
+          </h2>
+          <p className="mt-3 text-white/35 text-[13px] leading-relaxed max-w-sm">
+            Have a project in mind or just want to say hi?
+            Drop me a message — I reply within 24 hours.
           </p>
         </div>
 
-        {/* Contact Links */}
-        <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-tertiary">
-          <p className="text-white font-medium mb-3 sm:mb-4 text-sm sm:text-base">Or reach me directly:</p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            {/* WhatsApp */}
-            <a
-              href="https://wa.me/+201115655645" // Replace with your WhatsApp number
+        {/* Success banner */}
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 px-4 py-3.5 rounded-xl text-[13px]"
+          >
+            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Message sent! I'll get back to you soon.</span>
+            <button onClick={() => setShowSuccess(false)} className="ml-auto text-emerald-400/50 hover:text-emerald-400">✕</button>
+          </motion.div>
+        )}
+
+        {/* Form */}
+        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+          {/* Name + Email row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <span className="text-white/50 text-[11px] font-medium uppercase tracking-[0.14em]">Your Name</span>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Ahmed Sharaf"
+                className={`${inputBase} ${errors.name ? "border-red-500/40 focus:border-red-500/60" : "border-white/[0.08] focus:border-white/25"}`}
+              />
+              {errors.name && <span className="text-red-400/80 text-[11px] flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-400 inline-block" />{errors.name}</span>}
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <span className="text-white/50 text-[11px] font-medium uppercase tracking-[0.14em]">Email Address</span>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                className={`${inputBase} ${errors.email ? "border-red-500/40 focus:border-red-500/60" : "border-white/[0.08] focus:border-white/25"}`}
+              />
+              {errors.email && <span className="text-red-400/80 text-[11px] flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-400 inline-block" />{errors.email}</span>}
+            </div>
+          </div>
+
+          {/* Message */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-white/50 text-[11px] font-medium uppercase tracking-[0.14em]">Message</span>
+            <div className="relative">
+              <textarea
+                rows={5}
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                placeholder="Tell me about your project or idea…"
+                className={`${inputBase} resize-none ${errors.message ? "border-red-500/40 focus:border-red-500/60" : "border-white/[0.08] focus:border-white/25"}`}
+              />
+              <span className="absolute bottom-3 right-4 text-white/20 text-[10px] pointer-events-none">
+                {form.message.length}/500
+              </span>
+            </div>
+            {errors.message && <span className="text-red-400/80 text-[11px] flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-400 inline-block" />{errors.message}</span>}
+          </div>
+
+          {/* Submit */}
+          <motion.button
+            type="submit"
+            disabled={loading}
+            whileHover={loading ? {} : { scale: 1.02, y: -2 }}
+            whileTap={loading ? {} : { scale: 0.97 }}
+            className={`group mt-2 w-full relative flex items-center justify-center gap-2.5 py-4 rounded-xl font-semibold text-[14px] tracking-widest uppercase overflow-hidden transition-all duration-300 ${
+              loading
+                ? "bg-white/8 border border-white/10 text-white/25 cursor-not-allowed"
+                : "bg-white text-black border border-white shadow-[0_0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)]"
+            }`}
+          >
+            {/* shimmer sweep on hover */}
+            {!loading && (
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-black/10 to-transparent pointer-events-none" />
+            )}
+            {loading ? (
+              <>
+                <span className="w-4 h-4 border-2 border-white/20 border-t-white/50 rounded-full animate-spin" />
+                Sending…
+              </>
+            ) : (
+              <>
+                Send Message
+                <motion.svg
+                  className="w-4 h-4"
+                  fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
+                  initial={false}
+                  animate={{ x: 0 }}
+                  whileHover={{ x: 3 }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </motion.svg>
+              </>
+            )}
+          </motion.button>
+        </form>
+
+        {/* Direct contact icons */}
+        <div className="mt-8 pt-6 border-t border-white/[0.06]">
+            <p className="text-white/25 text-[11px] uppercase tracking-[0.14em] mb-5 text-center">
+              Or reach me directly
+            </p>
+          <div className="flex justify-center gap-10">
+
+            <motion.a
+              href="https://wa.me/+201115655645"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center sm:justify-start gap-3 bg-green-600 text-white px-4 py-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base font-medium"
+              whileHover={{ scale: 1.08, y: -4, filter: "drop-shadow(0 0 14px #25D36688)" }}
+              whileTap={{ scale: 0.93 }}
+              title="WhatsApp"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="flex flex-col items-center gap-2"
             >
-              <svg 
-                className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" 
-                fill="currentColor" 
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-14 h-14" fill="#25D366" viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
               </svg>
-              <span>WhatsApp</span>
-            </a>
+              <div className="flex flex-col items-center gap-0.5">
+                <span className="text-[#25D366] text-[12px] font-medium">WhatsApp</span>
+                <span className="text-white/30 text-[11px]">+20 111 565 5645</span>
+              </div>
+            </motion.a>
 
-            {/* Gmail */}
-            <a
-              href="mailto:aahmedsharaff@gmail.com" // Replace with your Gmail
-              className="flex items-center justify-center sm:justify-start gap-3 bg-red-600 text-white px-4 py-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base font-medium"
+            <motion.a
+              href="mailto:aahmedsharaff@gmail.com"
+              whileHover={{ scale: 1.08, y: -4, filter: "drop-shadow(0 0 14px #EA433588)" }}
+              whileTap={{ scale: 0.93 }}
+              title="Gmail"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="flex flex-col items-center gap-2"
             >
-              <svg 
-                className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" 
-                fill="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+              <svg className="w-14 h-14" viewBox="0 0 48 48">
+                <path fill="#4caf50" d="M45 16.2l-5 2.75-5 4.75L35 40h7c1.657 0 3-1.343 3-3V16.2z"/>
+                <path fill="#1e88e5" d="M3 16.2l3.614 3.48L13 23.7V40H6c-1.657 0-3-1.343-3-3V16.2z"/>
+                <polygon fill="#e53935" points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17"/>
+                <path fill="#c62828" d="M3 12.298V16.2l10 7.5V11.2L9.876 8.859C9.132 8.301 8.228 8 7.298 8 4.924 8 3 9.924 3 12.298z"/>
+                <path fill="#fbc02d" d="M45 12.298V16.2l-10 7.5V11.2l3.124-2.341C38.868 8.301 39.772 8 40.702 8 43.076 8 45 9.924 45 12.298z"/>
               </svg>
-              <span>Gmail</span>
-            </a>
+              <div className="flex flex-col items-center gap-0.5">
+                <span className="text-[#EA4335] text-[12px] font-medium">Gmail</span>
+                <span className="text-white/30 text-[11px]">aahmedsharaff@gmail.com</span>
+              </div>
+            </motion.a>
+
           </div>
         </div>
       </motion.div>
 
+      {/* ── Earth panel ────────────────────────────────────────────────── */}
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='xl:w-[80%] xl:h-auto md:h-[450px] h-[300px] mt-8 xl:mt-0'
+        className="xl:flex-1 h-[460px] xs:h-[520px] sm:h-[580px] xl:h-auto xl:min-h-[650px]"
       >
         <EarthCanvas />
       </motion.div>
+
     </div>
   );
 };
