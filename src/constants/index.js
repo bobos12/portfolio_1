@@ -51,7 +51,7 @@ const services = [
     icon: web,
   },
   {
-    title: "React ",
+    title: "Frontend ",
     icon: mobile,
   },
   {
@@ -60,6 +60,10 @@ const services = [
   },
   {
     title: "UI/UX ",
+    icon: creator,
+  },
+  {
+    title: "AI",
     icon: creator,
   },
 ];

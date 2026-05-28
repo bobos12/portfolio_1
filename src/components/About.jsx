@@ -5,7 +5,7 @@ import { styles } from "../styles";
 import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
-import star from "../assets/star.png";
+import energy from "../assets/energy.png";
 import rocket from "../assets/rocket.png";
 
 const ServiceCard = ({ index, title }) => (
@@ -16,15 +16,15 @@ const ServiceCard = ({ index, title }) => (
     className="flex flex-col items-center gap-4"
   >
     <motion.img
-      src={star}
+      src={energy}
       alt={title}
       className="w-20 h-20 object-contain"
       whileHover={{
-        filter: "drop-shadow(0 0 22px rgba(255,220,80,0.7)) drop-shadow(0 0 8px rgba(255,255,255,0.4))",
+        filter: "drop-shadow(0 0 22px rgba(120,180,255,0.8)) drop-shadow(0 0 8px rgba(255,255,255,0.4))",
         rotate: 18,
       }}
       transition={{ duration: 0.28 }}
-      style={{ filter: "drop-shadow(0 0 6px rgba(255,200,50,0.2))" }}
+      style={{ filter: "drop-shadow(0 0 6px rgba(100,160,255,0.25))" }}
     />
     <h3 className="text-white/70 text-[14px] font-medium text-center tracking-wide uppercase">
       {title}
@@ -84,7 +84,7 @@ const About = () => {
         who can deliver quality and creativity, let's build something remarkable together.
       </motion.p>
 
-   <div className="mt-16 grid grid-cols-2 gap-6 place-items-center sm:flex sm:flex-wrap sm:gap-12 sm:justify-start">
+      <div className="mt-16 flex flex-wrap gap-10 justify-center">
   {services.map((service, index) => (
     <ServiceCard key={service.title} index={index} {...service} />
   ))}

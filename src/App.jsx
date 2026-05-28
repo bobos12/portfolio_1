@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import IntroScreen from "./components/IntroScreen";
 import Cursor from "./components/Cursor";
 import ScrollProgress from "./components/ScrollProgress";
+import Chatbot from "./components/Chatbot";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -24,6 +25,7 @@ const App = () => {
     <BrowserRouter>
       <Cursor />
       <ScrollProgress />
+      <Chatbot />
       {!introDone && <IntroScreen onComplete={() => setIntroDone(true)} />}
 
       <motion.div

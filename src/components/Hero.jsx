@@ -35,14 +35,21 @@ const AnimatedUnderline = () => (
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [isMobile, setIsMobile]   = useState(() => window.innerWidth < 768);
 
-  /* --- Scroll parallax ----------------------------------------------- */
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  /* --- Scroll parallax (computed always, applied only on desktop) ----- */
   const { scrollY } = useScroll();
   const textY  = useTransform(scrollY, [0, 600], [0, -90]);
   const cardY  = useTransform(scrollY, [0, 600], [0, -140]);
   const fadeOut = useTransform(scrollY, [0, 400], [1, 0]);
 
-  /* --- 3-D card tilt ------------------------------------------------- */
+  /* --- 3-D card tilt (mouse-only, skipped on mobile) ----------------- */
   const cardRef = useRef(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -96,7 +103,7 @@ const Hero = () => {
       >
 
         {/* ══ LEFT — text content ══════════════════════════════════════ */}
-        <motion.div style={{ y: textY, opacity: fadeOut }} className="flex-1 flex items-start gap-5 z-10 order-1">
+        <motion.div style={isMobile ? {} : { y: textY, opacity: fadeOut }} className="flex-1 flex items-start gap-5 z-10 order-1">
 
           {/* Pulse + vertical line */}
           <motion.div
@@ -221,9 +228,9 @@ const Hero = () => {
         <motion.div
           ref={cardRef}
           className="shrink-0 z-10 order-2"
-          onMouseMove={onCardMove}
-          onMouseLeave={onCardLeave}
-          style={{ y: cardY, rotateX, rotateY, transformPerspective: 1000 }}
+          onMouseMove={isMobile ? undefined : onCardMove}
+          onMouseLeave={isMobile ? undefined : onCardLeave}
+          style={isMobile ? {} : { y: cardY, rotateX, rotateY, transformPerspective: 1000 }}
           variants={item}
         >
           <div className="relative w-[260px] h-[340px] sm:w-[300px] sm:h-[390px] md:w-[340px] md:h-[440px]">

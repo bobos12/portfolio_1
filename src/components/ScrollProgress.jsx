@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const ScrollProgress = () => {
+  const [isMobile] = useState(() => window.innerWidth < 768);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28 });
+
+  if (isMobile) return null;
 
   return (
     <motion.div
