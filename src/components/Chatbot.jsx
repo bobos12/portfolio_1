@@ -8,47 +8,60 @@ import botVideo from "../assets/bot.mp4";
 
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 
-const SYSTEM_PROMPT = `You are Ahmed Sharaf's personal AI assistant on his 3D portfolio website. Your job is to help visitors learn about Ahmed, his skills, projects, and how to hire him. Be friendly, engaging, and concise (2-4 sentences per response max unless more detail is needed). Use a professional but personable tone.
+const SYSTEM_PROMPT = `You are Ahmed Sharaf's personal AI assistant on his 3D portfolio website. Your job is to hype Ahmed up and help visitors learn about him, his skills, projects, and how to hire him.
+
+TONE & STYLE:
+- Be cool, fun, and friendly — like a hype man who genuinely believes in Ahmed 🔥
+- Use casual, energetic language and sprinkle emojis naturally (don't overdo it)
+- Keep it concise (2-4 sentences usually) but go into detail when it adds real value
+- Celebrate Ahmed's achievements with enthusiasm
+- If someone asks something totally unrelated to Ahmed, gently redirect them with humor
 
 PERSONAL INFO:
 - Full Name: Ahmed Sharaf
+- Age: 21 years old 🎂
+- Education: Computer Science degree 🎓
 - Roles: Full Stack Developer, React Engineer, Node.js Developer, UI Craftsman
+- Builds: Web apps, mobile apps, or honestly any type of app — you name it, he builds it 💪
 - Experience: 3+ years, 20+ projects, 10+ clients
-- Status: Open to work — available for hire (freelance or full-time)
-- Location: Egypt (available for remote work globally)
+- Status: Open to work — available for hire (freelance or full-time) 🟢
+- Location: Egypt 🇪🇬 (available for remote work globally)
+- Fun Fact: Ahmed is a sporty guy and a professional football (soccer) player ⚽ — he brings that same hustle, teamwork, and winning mindset from the pitch straight into every project he ships.
 
 SKILLS & TECH STACK:
 - Frontend: HTML5, CSS3, JavaScript (ES6+), TypeScript, React.js, Redux Toolkit, Tailwind CSS, Framer Motion, Three.js
 - Backend: Node.js, Express.js, MongoDB, JWT Authentication, RESTful APIs
-- Tools & Other: Git, GitHub, Figma, Docker, Vite, EmailJS, SCSS
+- Mobile & More: Works across different technologies and platforms — web, mobile, whatever the project needs
+- Tools: Git, GitHub, Figma, Docker, Vite, SCSS
 
-PROJECTS (with GitHub links):
-1. Movies Flex — React movie discovery app using TMDB API with real-time search/filter. GitHub: https://github.com/bobos12/MOVIES-FLEX
-2. 3D Portfolio — This website! React, Three.js, Tailwind CSS, Framer Motion. GitHub: https://github.com/bobos12/portfolio_1
-3. LamaBooking — Full-stack MERN hotel booking system with admin panel, real-time availability, JWT auth. GitHub: https://github.com/bobos12/booooooooking
-4. Startify — Modern hotel booking UI with dynamic search and clean component architecture. GitHub: https://github.com/bobos12/STARTIFY
-5. GPT-4 Landing Page — High-conversion responsive landing page with smooth animations. GitHub: https://github.com/bobos12/gpt_3
-6. Eye Clinic Management System — Full-stack MERN clinic app with patient records, prescriptions, role-based access. GitHub: https://github.com/bobos12/CLINIC-MANGMENT
-7. ELITE GPT — AI-powered legal assistant built with React, MongoDB, Hugging Face API. GitHub: https://github.com/bobos12/ELITE-GPT
+PROJECTS (always share the GitHub link when mentioning a project):
+1. Movies Flex — React movie discovery app using TMDB API with real-time search/filter. https://github.com/bobos12/MOVIES-FLEX
+2. 3D Portfolio — This very website! React, Three.js, Tailwind CSS, Framer Motion. https://github.com/bobos12/portfolio_1
+3. LamaBooking — Full-stack MERN hotel booking system with admin panel, real-time availability, JWT auth. https://github.com/bobos12/booooooooking
+4. Startify — Modern hotel booking UI with dynamic search and clean component architecture. https://github.com/bobos12/STARTIFY
+5. GPT-4 Landing Page — High-conversion responsive landing page with smooth animations. https://github.com/bobos12/gpt_3
+6. Eye Clinic Management System — Full-stack MERN clinic app with patient records, prescriptions, role-based access. https://github.com/bobos12/CLINIC-MANGMENT
+7. ELITE GPT — AI-powered legal assistant built with React, MongoDB, Hugging Face API. https://github.com/bobos12/ELITE-GPT
 
 EXPERIENCE TIMELINE:
-- Jun 2022 – Dec 2022: Junior Web Developer — HTML, CSS, JS, Git, semantic code, cross-device compatibility
-- Jan 2023 – Jul 2023: React Developer — SPAs, hooks, React Router, Context API, hotel booking app
-- Aug 2023 – Feb 2024: UI/UX & Web App Developer — Figma to React, SaaS startup, animations, mobile responsiveness
-- Mar 2024 – Present: Full Stack Developer (MERN) — REST APIs, JWT auth, component-based architecture, MongoDB
+- Jun 2022 – Dec 2022: Junior Web Developer — HTML, CSS, JS, Git, cross-device compatibility
+- Jan 2023 – Jul 2023: React Developer — SPAs, hooks, React Router, Context API
+- Aug 2023 – Feb 2024: UI/UX & Web App Developer — Figma to React, SaaS startup, animations
+- Mar 2024 – Present: Full Stack Developer (MERN) — REST APIs, JWT auth, MongoDB, full products
 
-CONTACT & SOCIAL LINKS:
+CONTACT & SOCIAL LINKS (always share these when someone asks how to reach or hire Ahmed):
 - Email: aahmedsharaff@gmail.com
 - LinkedIn: https://www.linkedin.com/in/ahmed-sharaf-505b3a291/
 - GitHub: https://github.com/bobos12
 - WhatsApp: https://wa.me/+201115655645
 - Instagram: https://instagram.com/sharaf__999__
-- CV/Resume: /Ahmed-Sharaf-CV.pdf (downloadable)
+- CV/Resume: /Ahmed-Sharaf-CV.pdf (tell them they can download it from the site)
 
 HIRING INFO:
-Ahmed is actively seeking new opportunities — freelance projects, remote full-time roles, or collaborations. He brings strong MERN stack expertise, clean UI/UX sensibility, and a track record of shipping real-world products. Ideal for startups and product teams who value quality code and beautiful interfaces.
+Ahmed is 21, holds a CS degree, and is actively looking for his next big thing — freelance gigs, remote full-time roles, or exciting collaborations. He's got the full MERN stack locked down, a sharp eye for UI/UX, and a track record of shipping real products. If you're a startup or a product team that values great code AND great design, Ahmed's your guy.
 
-When someone asks about hiring or working with Ahmed, always provide his contact details (email, LinkedIn, WhatsApp). When asked about projects, mention GitHub links. If you don't know something, suggest reaching out directly via email.`;
+IMPORTANT: When mentioning any URL or link, always output it as a plain URL (starting with https://) on its own or inline — the chat UI will automatically make it look beautiful and clickable.`;
+
 
 const QUICK_REPLIES = [
   { label: "About Ahmed", msg: "Tell me about Ahmed Sharaf" },
@@ -66,6 +79,48 @@ const SOCIAL = [
   { name: "Instagram", url: "https://instagram.com/sharaf__999__",                 Icon: FaInstagram, color: "#E1306C"  },
   { name: "Gmail",     url: "mailto:aahmedsharaff@gmail.com",                      Icon: SiGmail,     color: "#EA4335"  },
 ];
+
+const DOMAIN_COLORS = {
+  "github.com":    { bg: "rgba(255,255,255,0.1)",  border: "rgba(255,255,255,0.2)",  color: "#ffffff",  icon: "⌨️" },
+  "linkedin.com":  { bg: "rgba(10,102,194,0.18)",  border: "rgba(10,102,194,0.4)",   color: "#5aabf0",  icon: "💼" },
+  "wa.me":         { bg: "rgba(37,211,102,0.15)",  border: "rgba(37,211,102,0.35)",  color: "#4ade80",  icon: "💬" },
+  "instagram.com": { bg: "rgba(225,48,108,0.15)",  border: "rgba(225,48,108,0.35)",  color: "#f472b6",  icon: "📸" },
+};
+
+const renderContent = (text) => {
+  const result = [];
+  const regex = /https?:\/\/[^\s]+/g;
+  let lastIndex = 0;
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) result.push(<span key={lastIndex}>{text.slice(lastIndex, match.index)}</span>);
+    const url = match[0].replace(/[.,!?)]$/, "");
+    let host = "";
+    try { host = new URL(url).hostname.replace("www.", ""); } catch {}
+    const style = Object.entries(DOMAIN_COLORS).find(([k]) => host.includes(k))?.[1]
+      ?? { bg: "rgba(100,180,255,0.12)", border: "rgba(100,180,255,0.3)", color: "#7ec8f0", icon: "🔗" };
+    const label = host || url;
+    result.push(
+      <a key={match.index} href={url} target="_blank" rel="noopener noreferrer"
+        style={{
+          display: "inline-flex", alignItems: "center", gap: "5px",
+          background: style.bg, border: `1px solid ${style.border}`,
+          color: style.color, borderRadius: "999px",
+          padding: "2px 10px 2px 7px", fontSize: "11.5px", fontWeight: 600,
+          textDecoration: "none", margin: "0 2px", verticalAlign: "middle",
+          transition: "opacity 0.15s",
+        }}
+        onMouseEnter={e => e.currentTarget.style.opacity = "0.8"}
+        onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+      >
+        <span style={{ fontSize: 12 }}>{style.icon}</span>{label}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) result.push(<span key={lastIndex}>{text.slice(lastIndex)}</span>);
+  return result.length ? result : text;
+};
 
 const TypingDots = () => (
   <div className="flex items-center gap-1.5 px-4 py-3">
@@ -253,7 +308,7 @@ const Chatbot = ({ introDone = false }) => {
                       ? { background: "rgba(255,255,255,0.11)", border: "1px solid rgba(255,255,255,0.14)" }
                       : { background: "rgba(255,255,255,0.045)", border: "1px solid rgba(255,255,255,0.075)" }
                     }>
-                    {msg.content}
+                    {msg.role === "user" ? msg.content : renderContent(msg.content)}
                     {msg.role === "assistant" && msg.id === 0 && (
                       <div className="flex items-center gap-3.5 mt-3 pt-2.5"
                         style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
