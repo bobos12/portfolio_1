@@ -4,9 +4,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin, FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import { HiXMark, HiPaperAirplane } from "react-icons/hi2";
+import Langfuse from "langfuse";
 import botVideo from "../assets/bot.mp4";
 
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
+
+const lf = (import.meta.env.VITE_LANGFUSE_PUBLIC_KEY && import.meta.env.VITE_LANGFUSE_SECRET_KEY)
+  ? new Langfuse({
+      publicKey:  import.meta.env.VITE_LANGFUSE_PUBLIC_KEY,
+      secretKey:  import.meta.env.VITE_LANGFUSE_SECRET_KEY,
+      baseUrl:    "https://cloud.langfuse.com",
+    })
+  : null;
 
 const SYSTEM_PROMPT = `You are Ahmed Sharaf's personal AI assistant on his 3D portfolio website. Your job is to hype Ahmed up and help visitors learn about him, his skills, projects, and how to hire him.
 
@@ -155,6 +164,8 @@ const Chatbot = ({ introDone = false }) => {
 
   const bottomRef  = useRef(null);
   const inputRef   = useRef(null);
+  const sessionId  = useRef(crypto.randomUUID());
+  const traceRef   = useRef(null);
   const hasUserMsg = messages.some((m) => m.role === "user");
   const btnSize    = isMobile ? 52 : 68;
 
@@ -201,6 +212,23 @@ const Chatbot = ({ introDone = false }) => {
 
     try {
       const history = [...messages, userMsg].map(({ role, content }) => ({ role, content }));
+      console.log("%c📤 Sent to model", "color:#7ec8f0;font-weight:bold", history);
+
+      // Create a trace once per session
+      if (!traceRef.current && lf) {
+        traceRef.current = lf.trace({
+          name: "portfolio-chatbot",
+          sessionId: sessionId.current,
+          tags: ["portfolio"],
+        });
+      }
+      const generation = traceRef.current?.generation({
+        name: "chat-turn",
+        model: "llama-3.1-8b-instant",
+        input: history,
+        modelParameters: { max_tokens: 350, temperature: 0.72 },
+      });
+
       const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -217,11 +245,24 @@ const Chatbot = ({ introDone = false }) => {
 
       if (!res.ok) throw new Error("Request failed");
       const data = await res.json();
+      const reply = data.choices[0].message.content;
+      console.log("%c📥 Model reply", "color:#4ade80;font-weight:bold", reply);
+
+      generation?.end({
+        output: reply,
+        usage: {
+          promptTokens:     data.usage?.prompt_tokens,
+          completionTokens: data.usage?.completion_tokens,
+          totalTokens:      data.usage?.total_tokens,
+        },
+      });
+
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 1, role: "assistant", content: data.choices[0].message.content },
+        { id: Date.now() + 1, role: "assistant", content: reply },
       ]);
-    } catch {
+    } catch (err) {
+      generation?.end({ output: "ERROR", level: "ERROR", statusMessage: String(err) });
       setMessages((prev) => [
         ...prev,
         {
