@@ -25,7 +25,7 @@ const App = () => {
     <BrowserRouter>
       <Cursor />
       <ScrollProgress />
-      <Chatbot />
+      <Chatbot introDone={introDone} />
       {!introDone && <IntroScreen onComplete={() => setIntroDone(true)} />}
 
       <motion.div

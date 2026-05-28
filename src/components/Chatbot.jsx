@@ -83,7 +83,7 @@ const TypingDots = () => (
 const BOTTOM = 24;
 const RIGHT  = 24;
 
-const Chatbot = () => {
+const Chatbot = ({ introDone = false }) => {
   const [open, setOpen]         = useState(false);
   const [input, setInput]       = useState("");
   const [loading, setLoading]   = useState(false);
@@ -110,12 +110,17 @@ const Chatbot = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Auto-show hint bubble
+  // Show hint once: 5s after intro screen finishes
   useEffect(() => {
-    if (open) { setShowHint(false); return; }
-    const t1 = setTimeout(() => setShowHint(true), 2200);
-    const t2 = setTimeout(() => setShowHint(false), 8000);
+    if (!introDone || open) return;
+    const t1 = setTimeout(() => setShowHint(true), 5000);
+    const t2 = setTimeout(() => setShowHint(false), 11500);
     return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, [introDone]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Hide hint immediately if user opens chat
+  useEffect(() => {
+    if (open) setShowHint(false);
   }, [open]);
 
   useEffect(() => {
