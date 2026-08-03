@@ -39,6 +39,24 @@ body {
   display: block;
 }
 
+/* Hidden scrollbar — used by the mobile project carousel */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Live-site pulse dot */
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.82); }
+}
+.live-dot {
+  animation: livePulse 2s ease-in-out infinite;
+}
+
 .black-gradient {
   background: linear-gradient(to right, #1a1a1a, #000000);
 }

@@ -155,16 +155,7 @@ const Hero = () => {
                 </motion.span>
               </AnimatePresence>
             </motion.div>
-
-            {/* Bio */}
-            <motion.p
-              className="mt-5 text-white/40 text-[14px] max-w-md leading-relaxed font-light"
-              variants={item}
-            >
-              One brain, two stacks — building scalable, performant, and
-              visually stunning web experiences from idea to production.
-            </motion.p>
-
+            
             {/* Stats */}
             <motion.div className="hidden sm:flex gap-8 mt-7" variants={item}>
               {STATS.map((s) => (

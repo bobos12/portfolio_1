@@ -36,6 +36,11 @@ import startify from "./startify.png";
 import gpt from "./gpt.png";
 import movie from "./movie.png"
 import portfolio from "./portfolio.png"
+import futureEarth from "./futureEarth.png"
+import carTest from "./carTest.png"
+import fateen from "./fateen.png"
+import najmAlithar from "./najmAlithar.png"
+import retalResidence from "./retalResidence.png"
 
 
 export {
@@ -73,5 +78,10 @@ export {
   startify,
   gpt,
   movie,
-  portfolio
+  portfolio,
+  futureEarth,
+  carTest,
+  fateen,
+  najmAlithar,
+  retalResidence
 };
