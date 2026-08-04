@@ -476,7 +476,7 @@ const projects = [
     ],
     categories: ["Client Work", "Frontend"],
     image: fateen,
-    live_demo_link: "https://fateenksa.com/ads/web-development.html",
+    live_demo_link: "https://fateenksa.com/web-development/",
   },
   {
     name: "Najm Al-Ithar Travel",
