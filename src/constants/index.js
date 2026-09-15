@@ -29,7 +29,9 @@ import {
   carTest,
   fateen,
   najmAlithar,
-  retalResidence
+  retalResidence,
+  albadarOud,
+  abuMayar
 } from "../assets";
 
 
@@ -520,6 +522,48 @@ const projects = [
     categories: ["Client Work", "Frontend"],
     image: retalResidence,
     live_demo_link: "https://retal-residence-landing.vercel.app/",
+  },
+  {
+    name: "Albadar Oud Store",
+    description:
+      "An Arabic e-commerce store for a Saudi oud and incense retailer, selling premium agarwood, oud oils, musk blends, perfumes, and incense accessories. Built on Salla with a full catalogue, cart, and checkout flow tailored to Gulf shoppers.",
+    tags: [
+      { name: "salla", color: "green-text-gradient" },
+      { name: "e-commerce", color: "blue-text-gradient" },
+      { name: "rtl-arabic", color: "pink-text-gradient" },
+      { name: "fragrance", color: "orange-text-gradient" },
+    ],
+    features: [
+      "Full product catalogue for oud, oud oils, musk, and incense",
+      "Right-to-left Arabic storefront and typography",
+      "Category browsing with best-sellers and featured collections",
+      "Cart and secure checkout on the Salla platform",
+      "Branded storefront design with product galleries",
+    ],
+    categories: ["Client Work"],
+    image: albadarOud,
+    live_demo_link: "https://albadar-oud.com/",
+  },
+  {
+    name: "Abu Mayar Wild Game Store",
+    description:
+      "An Arabic e-commerce store for a Saudi specialist in premium wild game meat, offering slaughtering and butchering to order. Built on Salla with free delivery, Tabby and Tamara instalment payments, and a category-driven catalogue.",
+    tags: [
+      { name: "salla", color: "green-text-gradient" },
+      { name: "e-commerce", color: "blue-text-gradient" },
+      { name: "rtl-arabic", color: "pink-text-gradient" },
+      { name: "bnpl-payments", color: "purple-text-gradient" },
+    ],
+    features: [
+      "Catalogue of premium wild game cuts across multiple categories",
+      "Custom slaughtering and cutting requests at checkout",
+      "Tabby and Tamara instalment payment options",
+      "Free delivery across the Kingdom",
+      "Right-to-left Arabic storefront and typography",
+    ],
+    categories: ["Client Work"],
+    image: abuMayar,
+    live_demo_link: "https://abu-mayar-lilthabayih-sa.com/",
   },
 ];
 

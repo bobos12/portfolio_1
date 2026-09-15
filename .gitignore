@@ -18,3 +18,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# full-size marketing renders; the optimised webp copies in whatsapp-crm/ are tracked
+/src/assets/wahtsapp CRM/

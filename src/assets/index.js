@@ -41,6 +41,8 @@ import carTest from "./carTest.png"
 import fateen from "./fateen.png"
 import najmAlithar from "./najmAlithar.png"
 import retalResidence from "./retalResidence.png"
+import albadarOud from "./albadarOud.png"
+import abuMayar from "./abuMayar.png"
 
 
 export {
@@ -83,5 +85,7 @@ export {
   carTest,
   fateen,
   najmAlithar,
-  retalResidence
+  retalResidence,
+  albadarOud,
+  abuMayar
 };
