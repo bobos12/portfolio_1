@@ -266,7 +266,7 @@ const MobileHero = () => (
             alt="WhatsApp CRM — the AI assistant qualifying a lead in a live conversation"
             width={520}
             height={1125}
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="async"
             className="block w-full"
           />
@@ -356,7 +356,7 @@ const Stage = () => {
             alt="WhatsApp CRM — dashboard, AI assistant and pipeline overview"
             width={2000}
             height={1125}
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="async"
             className="block w-full"
           />
