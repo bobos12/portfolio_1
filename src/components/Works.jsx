@@ -9,7 +9,7 @@ import { projects } from "../constants";
 import ProjectModal from "./ProjectModal";
 import { BrowserFrame, StatusBadge } from "./ProjectPreview";
 
-const CATEGORIES = ["All", "Client Work", "Full-Stack", "Frontend"];
+const CATEGORIES = ["All", "Client Work", "Stores", "Full-Stack", "Frontend"];
 
 /* Renders only one layout tree at a time so project images aren't fetched twice */
 const useIsDesktop = () => {

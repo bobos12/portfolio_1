@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-import { About, Contact, Experience, Hero, Navbar, Tech, Works } from "./components";
+import { About, Contact, Experience, FeaturedProject, Hero, Navbar, Tech, Works } from "./components";
 import Galaxy from "./components/Galaxy";
 import Footer from "./components/Footer";
 import IntroScreen from "./components/IntroScreen";
@@ -60,6 +60,7 @@ const App = () => {
         <Hero />
         <About />
         <Tech />
+        <FeaturedProject />
         <Works />
         <Experience />
         <Contact />

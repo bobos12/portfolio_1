@@ -43,6 +43,10 @@ export const navLinks = [
     title: "About",
   },
   {
+    id: "featured",
+    title: "Featured",
+  },
+  {
     id: "work",
     title: "Work",
   },
@@ -540,7 +544,7 @@ const projects = [
       "Cart and secure checkout on the Salla platform",
       "Branded storefront design with product galleries",
     ],
-    categories: ["Client Work"],
+    categories: ["Client Work", "Stores"],
     image: albadarOud,
     live_demo_link: "https://albadar-oud.com/",
   },
@@ -561,7 +565,7 @@ const projects = [
       "Free delivery across the Kingdom",
       "Right-to-left Arabic storefront and typography",
     ],
-    categories: ["Client Work"],
+    categories: ["Client Work", "Stores"],
     image: abuMayar,
     live_demo_link: "https://abu-mayar-lilthabayih-sa.com/",
   },
