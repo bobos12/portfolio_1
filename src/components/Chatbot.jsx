@@ -247,6 +247,7 @@ const Chatbot = ({ introDone = false }) => {
     setInput("");
     setLoading(true);
 
+    let generation;
     try {
       const history = [...messages, userMsg].map(({ role, content }) => ({ role, content }));
       console.log("%c📤 Sent to model", "color:#7ec8f0;font-weight:bold", history);
@@ -259,9 +260,9 @@ const Chatbot = ({ introDone = false }) => {
           tags: ["portfolio"],
         });
       }
-      const generation = traceRef.current?.generation({
+      generation = traceRef.current?.generation({
         name: "chat-turn",
-        model: "llama-3.1-8b-instant",
+        model: "llama-3.3-70b-versatile",
         input: history,
         modelParameters: { max_tokens: 350, temperature: 0.72 },
       });
@@ -273,14 +274,14 @@ const Chatbot = ({ introDone = false }) => {
           Authorization: `Bearer ${GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "llama-3.1-8b-instant",
+          model: "llama-3.3-70b-versatile",
           messages: [{ role: "system", content: SYSTEM_PROMPT }, ...history],
           max_tokens: 350,
           temperature: 0.72,
         }),
       });
 
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) throw new Error(`Groq ${res.status}: ${await res.text()}`);
       const data = await res.json();
       const reply = data.choices[0].message.content;
       console.log("%c📥 Model reply", "color:#4ade80;font-weight:bold", reply);
